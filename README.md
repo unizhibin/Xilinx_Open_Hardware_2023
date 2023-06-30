@@ -9,7 +9,7 @@ Nevertheless, in order to compensate for the comparatively low sensitivity of NM
 
 In this project, with the strategy of substituting large superconducting magnets with small maintenance-free permanent magnets with sufficient field homogeneity and discrete sensor frontend electronics with custom-designed NMR-on-a-chip transceiver, we implement a portable, battery-powered, and low-cost FPGA-based NMR system that is capable of mobile relaxometry and spectroscopy. In addition, edge AI is deployed in our system. We demonstrate the possibilities of spectrum identification, which extends the usage of the system to Non-NMR-professionals, and intelligent field compensation due to temperature drift, which allows us to get rid of the power-hungry temperature control unit. 
 
-### Tools Used
+### Tools Used 
 1. Vivado: used for hardware simulation and implementation.
 
 2. Altium Designer: Circuits schematic design and PCB layout.
