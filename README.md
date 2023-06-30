@@ -34,7 +34,9 @@ Download the GUI files as they are ordered originally, run Launch.ipynb file and
 
 Here is the resource usage information on PYNQ ZU.
 
-![PYNQ ZU resource usage percentage](https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG)![PYNQ ZU resource usage](https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage.PNG)
+<center class="half">
+    <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" width="200"/><img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage.PNG" width="200"/>
+</center>
 
 Here the resource usage information on PYNQ Z2(without DPU).
 
