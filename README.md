@@ -36,13 +36,13 @@ Download the GUI files as they are ordered originally, run Launch.ipynb file and
     <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" width="400" alt="Image 1" style="float: left; margin-right: 10px;">
     <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage.PNG" width="400" alt="Image 2" style="float: left;">
 </div>
-Resource usage information on PYNQ ZU
+<center>Resource usage information on PYNQ ZU</center>
 
 <div>
     <img src="https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/FPGA%20Usage/PYNQ_Z2/Overlay%20Usage%20Percentage.PNG" width="400" alt="Image 1" style="float: left; margin-right: 10px;">
     <img src="https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/FPGA%20Usage/PYNQ_Z2/Overlay%20Usage.PNG" width="400" alt="Image 2" style="float: left;">
 </div>
-Resource usage information on PYNQ Z2(without DPU)
+<center>Resource usage information on PYNQ Z2(without DPU)</center>
 
 ### About This Project
 - Technical Complexity: It's a complete instrument system consisting of high-performance hardware design, embedded system design, and user interface software.
