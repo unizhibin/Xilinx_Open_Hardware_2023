@@ -2,19 +2,28 @@
 
 Project name: Quantum Sensing: PYNQ-based Portable Nuclear Magnetic Resonance Spectrometer Powered by Deep Learning from AMD Xilinx
 
-Link to YouTube Video: 
+Link to YouTube Video: https://youtu.be/D55JbZ45ar8
 
 Link to project repository: https://github.com/unizhibin/Xilinx_Open_Hardware_2023
 
 University name: University of Stuttgart
 
-Participants:
+Participants: Jianyu Zhao
+Email:jianyu.zhao@iis.uni-stuttgart.de
 
-Email:
+Participants: Hima Mullamangalam
+Email:st180551@stud.uni-stuttgart.de
+
+Participants: Peng Yichao
+Email: st175893@stud.uni-stuttgart.de
+
+Participants: Pratyush Shukla
+Email: st181601@stud.uni-stuttgart.de
+
 
 Supervisor name: Zhibin Zhao
 
-Supervisor e-mail:
+Supervisor e-mail:zhibin.zhao@iis.uni-stuttgart.de
 
 Board used: PYNQ-Z2, PYNQ-ZU
 
