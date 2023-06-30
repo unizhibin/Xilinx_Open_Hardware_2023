@@ -31,6 +31,12 @@ In this project, with the strategy of substituting large superconducting magnets
 Download the GUI files as they are ordered originally, run Launch.ipynb file and GUI will pop up.
 
 ### Resource Usage
+Here the resource usage information on PYNQ Z2.
+
+![PYNQ Z2 resource usage percentage](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/FPGA%20Usage/PYNQ_Z2/Overlay%20Usage%20Percentage.PNG)
+
+![PYNQ Z2 resource usage](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/FPGA%20Usage/PYNQ_Z2/Overlay%20Usage.PNG)
+
 Here is the resource usage information on PYNQ ZU.
 
 ![PYNQ ZU resource usage percentage](https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG)
