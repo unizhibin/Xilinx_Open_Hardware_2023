@@ -30,7 +30,7 @@ In this project, with the strategy of substituting large superconducting magnets
 4. Video: contains a short introduction video of the architecture and application of the pNMR system.
 ### Instructions On How To Run the Software System
 - Download the GUI files as they are ordered originally, run Launch.ipynb file and GUI will pop up.
- 
+
 ### Resource Usage
  
 <div align=center>
