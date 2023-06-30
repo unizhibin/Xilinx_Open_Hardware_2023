@@ -27,7 +27,7 @@ Supervisor e-mail:zhibin.zhao@iis.uni-stuttgart.de
 
 Board used: PYNQ-Z2, PYNQ-ZU
 
-Software version: Vivado 2020.2
+Software version: Vivado 2020.2 
 
 Project Description:
 
