@@ -20,7 +20,7 @@ In this project, with the strategy of substituting large superconducting magnets
 
 3. PYNQ board: GUI visualization and system configuration.
 ### Directories
-1. Documentation: contains all introduction files, details of overlay, and experiment results.
+1. Documentation: contains all introduction files (including a poster), details of overlay, and experiment results.
    
 2. GUI: contains the code for GUI which can be run on PYNQ board together with .bit file.
    
@@ -51,6 +51,8 @@ In this project, with the strategy of substituting large superconducting magnets
 - Re-usability: All PCBs, Python codes, Overlay design available. Easy to reproduce.
 
 ### Related Documents
+- [pNMR_FPGA_poster](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/pNMR_FPGA_poster.pptx)
+
 - [Hardware and Experiment DoC](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/tree/main/Documentation/Hardware%20and%20Experiment%20DoC.pdf)
 
 - [Overlay_NMR_Spectrometer](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/Overlay_NMR_Spectrometer.pdf)
