@@ -31,7 +31,7 @@ In this project, with the strategy of substituting large superconducting magnets
 Download the GUI files as they are ordered originally, run Launch.ipynb file and GUI will pop up.
  
 ### Resource Usage
-
+ 
 <div align=center>
     <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" width="400" alt="Image 1" style="float: left; margin-right: 10px;">
     <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage.PNG" width="400" alt="Image 2" style="float: left;">
