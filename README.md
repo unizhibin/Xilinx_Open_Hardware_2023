@@ -65,4 +65,4 @@ In this project, with the strategy of substituting large superconducting magnets
     <img src="https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/PYNQ%20Z2%20System.jpg" width="400" alt="Image 1" style="float: left; margin-right: 30px;">
     <img src="https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/PYNQ%20ZU%20System.jpg" width="400" alt="Image 2" style="float: left;">
 </div align=center>
-<p align="center">Resource usage information on PYNQ Z2(without DPU)</p>
+<p align="center">pNMR system pictures based on PYNQ-Z2(left) and PYNQ-ZU(right)</p>
