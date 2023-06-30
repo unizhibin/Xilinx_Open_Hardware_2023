@@ -16,7 +16,7 @@ In this project, with the strategy of substituting large superconducting magnets
 
 ### Tools Used
 1. Vivado: used for hardware simulation and implementation.
-   
+
 2. Altium Designer: Circuits schematic design and PCB layout.
 
 3. PYNQ board: GUI visualization and system configuration.
