@@ -51,7 +51,7 @@ In this project, with the strategy of substituting large superconducting magnets
 - Re-usability: All PCBs, Python codes, Overlay design available. Easy to reproduce.
 
 ### Related Documents
-- [pNMR_FPGA_poster](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/pNMR_FPGA_poster.pptx)
+- [pNMR_FPGA_poster](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/pNMR_FPGA_poster.pdf)
 
 - [Hardware and Experiment DoC](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/tree/main/Documentation/Hardware%20and%20Experiment%20DoC.pdf)
 
