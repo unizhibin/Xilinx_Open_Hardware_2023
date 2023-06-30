@@ -1,3 +1,9 @@
+<style>
+    p {
+        line-height: 1.5;
+    }
+</style>
+
 # Quantum Sensing
 ## PYNQ-based Portable Nuclear Magnetic Resonance Spectrometer Powered by Deep Learning from AMD Xilinx
 
