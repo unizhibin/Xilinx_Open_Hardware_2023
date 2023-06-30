@@ -20,7 +20,7 @@ In this project, with the strategy of substituting large superconducting magnets
 
 3. PYNQ board: GUI visualization and system configuration.
 ### Directories
-1. Documentation: contains all introduction files, details of overlay, and experiment results.
+1. Documentation: contains all introduction files (including a poster), details of overlay, and experiment results.
    
 2. GUI: contains the code for GUI which can be run on PYNQ board together with .bit file.
    
