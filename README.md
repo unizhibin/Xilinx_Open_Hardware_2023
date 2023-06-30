@@ -1,13 +1,13 @@
+# Quantum Sensing
+## PYNQ-based Portable Nuclear Magnetic Resonance Spectrometer Powered by Deep Learning from AMD Xilinx
+
+### Project Description
+
 <style>
     p {
         line-height: 1.5;
     }
 </style>
-
-# Quantum Sensing
-## PYNQ-based Portable Nuclear Magnetic Resonance Spectrometer Powered by Deep Learning from AMD Xilinx
-
-### Project Description
 
 Due to the unsurpassed specificity and complete non-invasiveness, Nuclear Magnetic Resonance (NMR) is an immensely powerful analytical tool in the field of analytical chemistry, food analysis, oil-well exploration, medical imaging, as well early-period disease detection. For example, NMR spectroscopy exploits the magnetic characteristics of atomic nuclei to provide specific information about the molecular structure and composition of a sample. While NMR relaxometry measures relaxation variables of a sample and provides valuable information about e.g. molecular mobility and water distribution within food products, and/or molecular dynamics, porosity, and moisture content in material science.
 Nevertheless, in order to compensate for the comparatively low sensitivity of NMR experiments, standard high-end NMR instruments utilize huge superconducting magnets to create a strong and homogeneous magnetic field since the field's strength boosts the NMR signal and the field's homogeneity is necessary to resolve the spectrum peaks. As a result, they are bulky and expensive, which remains a significant hurdle in making the powerful technology accessible to a wider range of applications. 
