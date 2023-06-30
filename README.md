@@ -50,6 +50,7 @@ Download the GUI files as they are ordered originally, run Launch.ipynb file and
 - Marketability: Low-cost, convenient and low power consumption. No complex installation process is needed. Easy to maintain.
 - Re-usability: All PCBs, Python codes, Overlay design available. Easy to reproduce.
 
+### Related Documents
 [Hardware and Experiment DoC](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/tree/main/Documentation/Hardware%20and%20Experiment%20DoC.pdf)
 
 [Overlay_NMR_Spectrometer](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/blob/main/Documentation/Overlay_NMR_Spectrometer.pdf)
