@@ -49,3 +49,5 @@ Download the GUI files as they are ordered originally, run Launch.ipynb file and
 - Implementation: Portable NMR system has the potential to broaden the application scenarios in various industry and research areas.
 - Marketability: Low-cost, convenient and low power consumption. No complex installation process is needed. Easy to maintain.
 - Re-usability: All PCBs, Python codes, Overlay design available. Easy to reproduce.
+
+[Hardware and Experiment DoC.pdf](https://github.com/unizhibin/Xilinx_Open_Hardware_2023/tree/main/Documentation)
