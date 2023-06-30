@@ -4,8 +4,8 @@
 ### Project Description
 
 <div>
-    <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" alt="Image 1" style="float: left; margin-right: 10px;">
-    <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" alt="Image 2" style="float: left;">
+    <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" width="200" alt="Image 1" style="float: left; margin-right: 10px;">
+    <img src="https://github.com/unizhibin/NMR-spectrometer/blob/main/AMD_Xilinx_Challenge_final/Documentation/Overlay%20Usage%20Percentage.PNG" width="200" alt="Image 2" style="float: left;">
 </div>
 
 Due to the unsurpassed specificity and complete non-invasiveness, Nuclear Magnetic Resonance (NMR) is an immensely powerful analytical tool in the field of analytical chemistry, food analysis, oil-well exploration, medical imaging, as well early-period disease detection. For example, NMR spectroscopy exploits the magnetic characteristics of atomic nuclei to provide specific information about the molecular structure and composition of a sample. While NMR relaxometry measures relaxation variables of a sample and provides valuable information about e.g. molecular mobility and water distribution within food products, and/or molecular dynamics, porosity, and moisture content in material science.
