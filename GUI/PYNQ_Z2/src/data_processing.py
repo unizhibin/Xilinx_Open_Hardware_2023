@@ -162,7 +162,7 @@ def func_dc_remove(data):
 def func_save_file(ch0, ch1):
 
     print('Begin generating file and writing data.')
-    time_line_length = max(len(ch0), len(ch1), len(ch2), len(ch3))
+    time_line_length = max(len(ch0), len(ch1))
     time_stream_root = np.arange(0,time_line_length)
     time_stream = list(time_stream_root * mmio.read(conf_dict['conf_scale']) * sampling_time)  
     _ch0 = list(np.array(ch0) / c_for_convert_a)# + c_for_convert_b)

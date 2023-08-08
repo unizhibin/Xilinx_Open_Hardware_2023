@@ -498,8 +498,8 @@ def thread_of_plot_data():
     return
 
 buffer_size = all_of_the_parameters.Nr_Ana_Ch * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_NR_SAMPLES_CMD']) * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_STREAM_NR_RX_PULSE'])
-# Thread_plot = threading.Thread(target = thread_of_plot_data)
-# Thread_plot.start()
+Thread_plot = threading.Thread(target = thread_of_plot_data)
+Thread_plot.start()
 
 
 
