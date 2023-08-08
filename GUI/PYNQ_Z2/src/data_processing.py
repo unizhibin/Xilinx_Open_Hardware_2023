@@ -83,6 +83,7 @@ def mmio_init():
     mmio.write(conf_dict['conf_nr_rx_pulse'], 1) # initial rx number
     mmio.write(conf_dict['conf_nr_sample'], 2**16) # initial sample per rx pulse package
     mmio.write(conf_dict['conf_exp_stop'], 1) # set experiment stop flag - active low
+    mmio.write(conf_dict['conf_loop_stop'], 1) # set experiment stop flag - active low
 
     return
 
@@ -280,3 +281,18 @@ def bandpass_filter(data, f_low, f_high, order=3, type=2): # apply bandpass filt
         b, a = signal.ellip(order, rp, rs, Wn, btype='band', analog=False, output='ba') # 返回滤波器的分子系数（b）和分母系数（a）
         data_elliptic_filtered = lfilter()
     return data_elliptic_filtered
+
+
+def calculate_nmr_linewidth(frequency, amplitude): # find linewidth on frequency spectrum, y normalized
+    
+    # find peak and index
+    peak_max = np.max(amplitude)
+    peak_index = np.argmax(amplitude)
+
+    # calculate linewidth using half peak width method
+    half_max = peak_max / 2.0
+    left_index = np.where(amplitude[:peak_index] <= half_max)[0][-1]
+    right_index = np.where(amplitude[peak_index:] <= half_max)[0][0] + peak_index
+    linewidth = frequency[right_index] - frequency[left_index]
+
+    return linewidth

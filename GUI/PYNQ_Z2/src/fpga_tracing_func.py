@@ -19,8 +19,8 @@ warnings.filterwarnings("ignore", message="Setting frequency to the closest poss
 ol = Overlay(path_to_bitstream)
 pulse_gen = ol.fpga_pulse_generator_0    # DACs Pulse Generator unit
 osci = ol.fpga_tracing_0    # ADCs tracing unit
-adc0 = ol.fpga_ADC_AD7960_0 # ADC drivers
-adc1 = ol.fpga_ADC_AD7960_1
+adc0 = ol.fpga_adc_max11198_0 # ADC drivers
+adc1 = ol.fpga_adc_max11198_1
 chip_cfg = ol.fpga_nmr_chip_config_0 # chip config control unit definition
 
 # dictionary for tracing fpga controlling

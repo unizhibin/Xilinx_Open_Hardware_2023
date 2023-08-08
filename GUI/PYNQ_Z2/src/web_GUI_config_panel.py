@@ -256,14 +256,27 @@ def GUI_title():
     )
     return GUI_title
 
-def GUI_sys_title():
+def GUI_RX_Synchronization():
     
-    GUI_sys_title = widgets.Label(
+    GUI_RX_Synchronization = widgets.Label(
         value="RX Synchronization:",
         layout = widgets.Layout(height='25px', width=str(round(0.07292*screen_width))+'px'),
         align_items='flex-start'
     )
-    return GUI_sys_title
+    return GUI_RX_Synchronization
+
+def GUI_Exp_loop():
+    
+    GUI_Exp_loop = widgets.ToggleButton(
+        value=False,
+        description='Loop Off',
+        disabled=False,
+        button_style='',
+        tooltip='set patameters before activate',
+        icon='',
+        layout = widgets.Layout(height='30px', width=str(round(0.06667*screen_width))+'px'), # min118px, 128px original
+    )
+    return GUI_Exp_loop
 
 def GUI_TBtn_arm():
     
@@ -291,13 +304,13 @@ def GUI_TBtn_run_stop():
     )
     return GUI_TBtn_run_stop
 
-def GUI_onoff(a):
+def GUI_onoff(a, b):
     
     GUI_onoff = widgets.VBox(
         [
-            GUI_sys_title(),
+            GUI_RX_Synchronization(),
             a,
-            # b,
+            b,
         ],
         layout = widgets.Layout(
             height='118px',
@@ -1136,7 +1149,8 @@ GUI_blankline = GUI_blankline()
 #onoff button
 GUI_TBtn_arm = GUI_TBtn_arm()
 GUI_TBtn_run_stop = GUI_TBtn_run_stop()
-GUI_onoff = GUI_onoff(GUI_TBtn_arm)
+GUI_Exp_loop = GUI_Exp_loop()
+GUI_onoff = GUI_onoff(GUI_TBtn_arm, GUI_Exp_loop)
 
 #ana trigger cbox
 GUI_ana_label_blank = GUI_ana_label_blank()
@@ -1218,6 +1232,8 @@ def GUI_prop_init():
     GUI_Enh_DC.button_style = 'danger'
     GUI_save_button.disabled = False
     GUI_FFT_run_stop.button_style = 'danger'
+    GUI_Exp_loop.botton_style = 'danger'
+    GUI_Exp_loop.disabled = False
 
     return
 
@@ -1700,7 +1716,21 @@ def on_checkbox_bandpass_change(change, filter_type):
     mmio.write(conf_dict['conf_bandpass_filter'], filter_type)
     if not GUI_checkbox_Butterworth.value and not GUI_checkbox_Cheby1.value and not GUI_checkbox_Cheby2.value:
         mmio.write(conf_dict['conf_bandpass_filter'], 0)
-    
+
+# control experiment loop function        
+def on_value_change_Exp_loop(change):
+
+    mmio.write(conf_dict['conf_token'], 1)
+    if change['new'] == True: # 0 = loop, 1 = stop
+        mmio.write(conf_dict['conf_loop_stop'], 0)
+        GUI_Exp_loop.button_style = 'success'
+        GUI_Exp_loop.description='Loop On'
+    elif change['new'] == False:
+        mmio.write(conf_dict['conf_loop_stop'], 1)
+        GUI_Exp_loop.button_style = 'danger'
+        GUI_Exp_loop.description='Loop Off'
+
+    return
 
 # observing nmr_chip_cfg GUI element
 GUI_chip_cfg_ref_current.observe(on_value_change_GUI_chip_cfg_ref_current, names='value')
@@ -1708,34 +1738,20 @@ GUI_chip_cfg_vga_gain.observe(on_value_change_GUI_chip_cfg_vga_gain, names='valu
 GUI_chip_cfg_pll_mult.observe(on_value_change_GUI_chip_cfg_pll_mult, names='value')
 
 # observing tracing GUI element
-# GUI_TBtn_run_stop.observe(on_value_change_GUI_run_stop, names='value')
 GUI_TBtn_arm.observe(on_value_change_Trigger_Activate, names='value')
-
-# GUI_checkbox_ana_ris.observe(on_value_change_ana_ris, names='value')
-# GUI_checkbox_ana_fal.observe(on_value_change_ana_fal, names='value')
-# GUI_Dropdown_analog_ch.observe(on_value_change_ana_ch, names='value')
-# GUI_Analog_Level.observe(on_value_change_ana_TL, names='value')
-
-# GUI_checkbox_dig_ris.observe(on_value_change_dig_ris, names='value')
-# GUI_checkbox_dig_fal.observe(on_value_change_dig_fal, names='value')
-
+GUI_Exp_loop.observe(on_value_change_Exp_loop, names='value')
 GUI_Dropdown_Enh_ch.observe(on_value_change_enh_ch, names='value')
 GUI_Enh_tau.observe(on_value_change_enh_tau, names='value')
 GUI_Enh_DC.observe(on_value_change_enh_dc, names='value')
 GUI_Enh_sensitivity.observe(on_value_change_enh_sen, names='value')
 GUI_Enh_Resolution.observe(on_value_change_enh_res, names='value')
 
-# GUI_bandpass_low.observe(on_value_change_bp_low_value, names='value')
-# GUI_bandpass_high.observe(on_value_change_bp_high_value, names='value')
-# GUI_checkbox_low.observe(on_value_change_bp_low_cb, names='value')
-# GUI_checkbox_high.observe(on_value_change_bp_high_cb, names='value')
-
+# observing Bandpass Filter GUI element
 GUI_checkbox_Butterworth.observe(lambda change: on_checkbox_bandpass_change(change, 2), names='value')
 GUI_checkbox_Cheby1.observe(lambda change: on_checkbox_bandpass_change(change, 3), names='value')
 GUI_checkbox_Cheby2.observe(lambda change: on_checkbox_bandpass_change(change, 4), names='value')
 
 GUI_Scale.observe(on_value_change_Scale, names='value')
-#GUI_delay.observe(on_value_change_Position, names='value')
 GUI_set_nr_samples.observe(on_value_change_samples, names='value')
 
 

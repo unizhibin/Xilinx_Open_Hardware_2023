@@ -9,8 +9,8 @@ screen_height = 1080 # in pixel 1080
 
 # choose bitstream, generated in Vivado
 # path_to_bitstream = './src/design_diff_clk.bit'
-# path_to_bitstream = './src/NMR.bit'
 path_to_bitstream = './src/NMR.bit'
+# path_to_bitstream = './src/DPU_NMR.bit'
 
 sys_clk_freq = 100 # MHz
 dds_clk_freq = 250 # MHz
@@ -142,12 +142,14 @@ conf_dict = {
     'conf_nr_rx_pulse': 28*4, # set number of rx pulse, fid:1, cpmg:echo text input
     'conf_nr_sample': 29*4, # set number of sample each bag
     
-    'conf_exp_stop': 30*4, # terminate experiment
+    'conf_exp_stop': 30*4, # terminate experiment, 0-average, 1-stop
     
     'conf_bandpass_filter': 31*4, # whether to apply bandpass filter
     'conf_bandpass_filter_f_low': 32*4, # lower band of bandpass filter
     'conf_bandpass_filter_f_high': 33*4, # higher band of bandpass filter
     'conf_bandpass_filter_order': 34*4, # order of bandpass filter
+    
+    'conf_loop_stop': 35*4, # FID or CPMG loop token, 0-loop, 1-stop
     
 }
 
