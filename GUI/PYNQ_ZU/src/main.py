@@ -135,7 +135,7 @@ def Exp_Start_pg(i, buffer_size):  # single experiment
 
     func_plot_data(receiver_time_total, time_stream_sampled, ch0_plot, ch1_plot) # update plots
     if web_GUI_config_panel.GUI_FFT_run_stop.value == True:
-        func_fft_fitting(Analog0_stream, Analog1_stream)
+        func_T2_fitting(Analog0_stream, Analog1_stream)
     else:
         GUI_plot_FFT.update_traces(visible=False, selector=dict(name='T2'))
         GUI_plot_FFT.update_traces(visible=False, selector=dict(name='T2_fit'))
@@ -143,24 +143,24 @@ def Exp_Start_pg(i, buffer_size):  # single experiment
     
     return
 
-def Exp_Avg_pg(): # several experiments and time domain averaging
-    
+def Exp_Avg_pg(total_exp_nr = None): # several experiments and time domain averaging
+    if total_exp_nr is None:
+        total_exp_nr = web_GUI_pulse_gen.left_text.value
     global output_buffer_0, output_buffer_1, buffer_size
     
-    mmio.write(conf_dict['conf_exp_stop'], 1) # reset stop flag
+    mmio.write(conf_dict['conf_exp_stop'], 0) # reset stop flag
 
     output_buffer_0[:] = 0 # set initial value, no need any more
     output_buffer_1[:] = 0
     
     config_c(1)
     
-    total_exp_nr = web_GUI_pulse_gen.left_text.value
     exp_interval = web_GUI_pulse_gen.left_text9.value
     buffer_size = all_of_the_parameters.Nr_Bytes_per_Ch * all_of_the_parameters.Nr_Ana_Ch * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_NR_SAMPLES_CMD']) \
     * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_STREAM_NR_RX_PULSE'])
     
     for i in range(total_exp_nr):
-        if mmio.read(conf_dict['conf_exp_stop']) == 1:
+        if mmio.read(conf_dict['conf_exp_stop']) == 0:
             web_GUI_config_panel.prog.value = int((i + 1) / total_exp_nr * 100)
             Exp_Start_pg(i, buffer_size) # update output buffer 0
             time.sleep(exp_interval)
@@ -170,19 +170,21 @@ def Exp_Avg_pg(): # several experiments and time domain averaging
 
     return
 
-def thread_of_Exp_Avg_pg(self): # start a thread for CPMG experiments
-    
+def thread_of_Exp_Avg_pg(_): # start a thread for CPMG experiments
     if config_fail == 0 : # first check if configure flag True (0 True)
-        thread_Avg_pg = threading.Thread(target = Exp_Avg_pg)
-        thread_Avg_pg.start()
-        thread_Avg_pg.join()
+        thread_Avg_pg = threading.Thread(target = Exp_Avg_pg, name='thread_cpmg')
+        print('Create FID thread named: ', thread_Avg_pg.name)
+        if check_existing_thread(thread_Avg_pg.name) == False:
+            print('No current thread')
+            thread_Avg_pg.start()
+            # thread_Avg_pg.join()
     else: # CPMG sequence time requirement(1. receiving time enough, 2. buffer size not exceeded, 3. section duration non-negative)
-        pass
-
+        pass 
+    
 # 2. FID experiment
 def Exp_Start_pg1(i, buffer_size): # connect to FID
     
-    # print('debug fid pg1 exp start')
+    print('debug fid pg1 exp start')
     
     np.seterr(invalid='ignore')
     
@@ -242,13 +244,13 @@ def Exp_Start_pg1(i, buffer_size): # connect to FID
 
     data_length = len(Analog0_stream) # length of data stream for n packages(echos)
     receiver_time_total = data_length / (sys_clk_freq * (10 ** 6) / clock_scale) # total time length for one channel, one echo for FID
-
-    time_stream = np.linspace(0,receiver_time_total,data_length) # linspace instead of arange before data sampling and compressing for plot 
     
+    time_stream = np.linspace(0,receiver_time_total,data_length) # linspace instead of arange before data sampling and compressing for plot 
+
     ch0_plot, ch1_plot, time_stream_sampled = data_processing.func_data_processing_for_plot(time_stream, Analog0_stream, Analog1_stream, buffer_size / (4*Nr_Ana_Ch))
 
     # calculate x-axis for time domain signal
-    
+
     func_plot_data(receiver_time_total, time_stream_sampled, ch0_plot, ch1_plot) # update plots
     if web_GUI_config_panel.GUI_FFT_run_stop.value == True:
         func_fft_processing(Analog0_stream, Analog1_stream)
@@ -256,48 +258,78 @@ def Exp_Start_pg1(i, buffer_size): # connect to FID
         GUI_plot_FFT.update_traces(visible=False, selector=dict(name='T2'))
         GUI_plot_FFT.update_traces(visible=False, selector=dict(name='T2_fit'))
         GUI_plot_FFT.update_traces(visible=False, selector=dict(name='FFT'))
-        
+
     return
 
-def Exp_Avg_pg1():
+def Exp_Avg_pg1(total_exp_nr = None):
+    if total_exp_nr is None:
+        total_exp_nr = web_GUI_pulse_gen.left_text6.value
+    print('avg exp begins')
+    print('total_exp_nr=', total_exp_nr)
     
     global output_buffer_0, output_buffer_1, buffer_size
-    
-    mmio.write(conf_dict['conf_exp_stop'], 1) # reset stop flag
-    
+
+    mmio.write(conf_dict['conf_exp_stop'], 0) # reset stop flag
+
     output_buffer_0[:] = 0
     output_buffer_1[:] = 0
-    
+
     web_GUI_pulse_gen.config_plot_f(1)
-    
-    total_exp_nr = web_GUI_pulse_gen.left_text6.value
+
+    print('debug 1')
+
     exp_interval = web_GUI_pulse_gen.left_text9.value
     buffer_size = all_of_the_parameters.Nr_Bytes_per_Ch * all_of_the_parameters.Nr_Ana_Ch * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_NR_SAMPLES_CMD']) \
     * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_STREAM_NR_RX_PULSE'])
     
+    print('debug 2')
+    
     for i in range(total_exp_nr):
-        if mmio.read(conf_dict['conf_exp_stop']) == 1:
+        print('debug 3')
+        if mmio.read(conf_dict['conf_exp_stop']) == 0:
+            print('fid continue')
             web_GUI_config_panel.prog.value = int((i + 1) / total_exp_nr * 100)
             Exp_Start_pg1(i, buffer_size) # update output buffer 0
             time.sleep(exp_interval)
         else:
             web_GUI_config_panel.prog.value = 100
+            print('force out')
             break
-    
+            
     return
 
-def thread_of_Exp_Avg_pg1(self): # FID
+def thread_of_Exp_Avg_pg1(_): # FID
+    thread_Avg_pg1 = threading.Thread(target = Exp_Avg_pg1, name='thread_fid')
+    print('Create FID thread named: ', thread_Avg_pg1.name)
+    if check_existing_thread(thread_Avg_pg1.name) == False:
+        print('No current thread')
+        thread_Avg_pg1.start()
+    # thread_Avg_pg1.join() # block the current thread until it's finished
     
-    thread_Avg_pg1 = threading.Thread(target = Exp_Avg_pg1)
-    thread_Avg_pg1.start()
-    thread_Avg_pg1.join() # block the current thread until it's finished
-    
+# check active thread of same name, for example start a single experiment when the former one still running
+def check_existing_thread(thread_name):
+    # traverse all threads
+    index = 0
+    for thread in threading.enumerate():
+        # print(type(thread.name))
+        index += 1
+        # print("Current thread's name is:", thread.name)
+        # print('\n')
+        if thread.name == thread_name:
+            if thread.is_alive():
+                print("Current thread still in process!")
+                # thread.join() # block the thread until it's done
+                return True
+            else:
+                thread.stop()
+                print("Current thread finished!")
+    return False 
 
-    
+
 """
 CPMG Experiment parameter configuration
 """
-def config_c(self):
+def config_c(_):
     
     # rx pulse duration should be longer than the time to transfer the points in a package
     # section duration should not be zero or negative
@@ -306,7 +338,7 @@ def config_c(self):
     
     config_fail = 0 # if fail, this flag equal to 1
     
-    web_GUI_pulse_gen.config_plot_c(self)
+    web_GUI_pulse_gen.config_plot_c(1)
     
     clock_scale = int(100 / web_GUI_config_panel.GUI_Scale.value)
     fre_sys = sys_clk_freq * (10 ** 6)
@@ -335,10 +367,11 @@ def config_c(self):
 """
 Stop experiment
 """   
-def nmr_stop(self): # terminate the experiment
-    mmio.write(conf_dict['conf_exp_stop'],0)
+def nmr_stop(_): # terminate the experiment
+    print('stop button clicked.')
+    mmio.write(conf_dict['conf_exp_stop'],1)
 
-    
+
     
 """
 Connect widget buttons with functions
@@ -439,7 +472,7 @@ def func_system_cycle(): # give all the 2 ** 15 samples out
         buffer_size = all_of_the_parameters.Nr_Bytes_per_Ch * all_of_the_parameters.Nr_Ana_Ch * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_NR_SAMPLES_CMD']) * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_STREAM_NR_RX_PULSE'])
         mmio.write(conf_dict['conf_nr_sample'], fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_NR_SAMPLES_CMD']))
         Analog0_stream, Analog1_stream, Analog2_stream, Analog3_stream = data_processing.func_update_data(fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_STREAM_NR_RX_PULSE']), buffer_size) # func_update_data用于接收包至output_buffer_0
-        thread_fft = threading.Thread(target=func_fft_processing, args=(Analog0_stream, Analog1_stream, Analog2_stream, Analog3_stream))
+        thread_fft = threading.Thread(target=func_fft_processing, args=(Analog0_stream, Analog1_stream))
         thread_fft.start()
 
         if (trigger == 1): #0 = not triggered, 1 = triggered
@@ -523,7 +556,7 @@ def find_maxAmp(data0, data1): # function for acquiring maximum peak-to-peak amp
 def func(t, T2): # T2 relaxation fitting paradigm
     return np.exp(-t/T2)
 
-def func_fft_fitting(Analog0_stream, Analog1_stream): # for CPMG T2 relaxation
+def func_T2_fitting(Analog0_stream, Analog1_stream): # for CPMG T2 relaxation
     
     # neglect optimizaWarning from scipy
     warnings.simplefilter("ignore", OptimizeWarning)
@@ -564,13 +597,16 @@ def func_fft_fitting(Analog0_stream, Analog1_stream): # for CPMG T2 relaxation
             print("Value Error!")
             return
         else: # if try successful and no error happened
-            print(popt)
+            # print(popt)
             pass
         
         GUI_plot_FFT.update_xaxes(title_text='Time(s)')
         GUI_plot_FFT.update_xaxes(range=[0, max(xdata)])
         GUI_plot_FFT.update_yaxes(range=[-0.1, 1.1])
-        GUI_plot_FFT.update_traces(visible=False, selector=dict(name='FFT'))
+        GUI_plot_FFT.update_traces(
+            visible=False, 
+            selector=dict(name='FFT')
+        )
         y_fit = func(np.array(xdata), *popt)
         y_fit = np.array(y_fit)
         GUI_plot_FFT.update_traces(
@@ -654,6 +690,16 @@ def func_plot_FFT(input_data):
     )
     # GUI_plot_FFT.update_xaxes(range=[0, f_fft[-1]])
     
+    # calculate linewidth and show annotation on frequency spectrum
+    if web_GUI_config_panel.GUI_Exp_loop.value == True:
+        nmr_linewidth = data_processing.calculate_nmr_linewidth(f_fft, input_data)
+        x_annotation = 1e5
+        new_annotation = dict(text = 'linewidth = %d Hz' % nmr_linewidth, x = x_annotation, y = 0.95)
+        GUI_plot_FFT.update_layout(annotations=[dict(xref='x', yref='y', showarrow=False, **new_annotation)])
+        GUI_plot_FFT.update_annotations(visible=True)
+    else:
+        GUI_plot_FFT.update_annotations(visible=False)
+        
     return
 
 def func_plot_data(x_axis_range, time_stream, ch0, ch1):
@@ -692,9 +738,36 @@ def auto_collect_data():
     c_for_convert_a = all_of_the_parameters.c_for_convert_a # ADC plot converting code
 
     for i in range(num_exp):
-        thread_of_Exp_Avg_pg1(1) # experiment parameters should be adjusted in GUI
+        thread_of_Exp_Avg_pg1(_) # experiment parameters should be adjusted in GUI
         time.sleep(time_between_exp) # wait for signal generation
         buffer_size = all_of_the_parameters.Nr_Ana_Ch * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_NR_SAMPLES_CMD']) * fpga_tracing_func.osci.read(all_of_the_parameters.fpga_func_dict['C_SET_STREAM_NR_RX_PULSE'])
         file_name = material_name + str(i)
         data_processing.func_save_file_for_automatic_collection(output_buffer_1[0:buffer_size:Nr_Ana_Ch], output_buffer_1[1:buffer_size:Nr_Ana_Ch], file_name)
-    
+ 
+
+
+"""
+Automatic experiment loop (FID or CPMG)
+"""
+
+def fid_loop():
+    while not mmio.read(conf_dict['conf_loop_stop']): # loop on
+        Exp_Avg_pg1(1)
+        # time.sleep(0.1)
+
+def cpmg_loop():
+    while not mmio.read(conf_dict['conf_loop_stop']): # loop on
+        Exp_Avg_pg(1) # once each time
+        # time.sleep(0.1)
+
+def exp_loop(change):
+
+    if not mmio.read(conf_dict['conf_loop_stop']): # flag = 0, loop running
+        if web_GUI_pulse_gen.sequence_choice_menu.value == 'FID': # detect whether CPMG or FID to loop
+            thread_fid_loop = threading.Thread(target=fid_loop)# create new thread for FID loop
+            thread_fid_loop.start()
+        elif web_GUI_pulse_gen.sequence_choice_menu.value == 'CPMG':
+            thread_cpmg_loop = threading.Thread(target=cpmg_loop)# create new thread for CPMG loop
+            thread_cpmg_loop.start()
+
+web_GUI_config_panel.GUI_Exp_loop.observe(exp_loop, 'value') # connect click button action to experiment loop

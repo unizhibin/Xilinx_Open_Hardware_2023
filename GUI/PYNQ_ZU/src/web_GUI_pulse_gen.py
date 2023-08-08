@@ -456,7 +456,7 @@ class PulseGen_CPMG:
         # resetn for each section
         self.IP.write(pulse_gen_dict['C_SET_RESETN_DDS'],rstn)
         
-    def Sec_Config_CPMG(self,b):
+    def Sec_Config_CPMG(self,_):
         
         # add a non-use parameter b to avoid strange problem: type error, takes 1 arguments 2 given
         # update self.parameters from text boxes then write into IP core pulse_gen
@@ -544,7 +544,7 @@ class PulseGen_CPMG:
         self.cpmg_phase = l_p0
         self.cpmg_len = l_delay
         
-    def Exp_Start(self,b):
+    def Exp_Start(self,_):
         self.IP.write(pulse_gen_dict['C_SEQUENCE_GENERATOR_EN'],0) # first set enable signal 0 then 1.
         self.IP.write(pulse_gen_dict['C_SEQUENCE_GENERATOR_EN'],1)
         #thread = threading.Thread(target=self.Exp_Trigger_Thread)  # create a new thread for showing without disturbing experiment
@@ -556,7 +556,7 @@ class PulseGen_CPMG:
         time.sleep(t_total_s)
         self.IP.write(pulse_gen_dict['C_SEQUENCE_GENERATOR_EN'],0)
 
-    def Exp_Stop(self,b): # to terminate the experiment before it's finished
+    def Exp_Stop(self,_): # to terminate the experiment before it's finished
         self.IP.write(pulse_gen_dict['C_SEQUENCE_GENERATOR_EN'],0)
         
 # --- Class Definition for FID ---
@@ -614,7 +614,7 @@ class PulseGen_FID:
         # resetn for each section
         self.IP.write(pulse_gen_dict['C_SET_RESETN_DDS'],rstn)
         
-    def Sec_Config_FID(self,b): 
+    def Sec_Config_FID(self,_): 
         
         # print('test pulse gen sec_config_fid')
         
@@ -667,7 +667,7 @@ class PulseGen_FID:
         
         self.t_total = t_total
         
-    def Exp_Start(self,b):
+    def Exp_Start(self,_):
         
         self.IP.write(pulse_gen_dict['C_SEQUENCE_GENERATOR_EN'],0) # first set enable signal 0 then 1.
         self.IP.write(pulse_gen_dict['C_SEQUENCE_GENERATOR_EN'],1)

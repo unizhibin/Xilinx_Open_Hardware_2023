@@ -63,7 +63,7 @@ Nr_Dig_Mem = 1
 Dep_Mem = 19 # 17 before
 point_number_on_screen = 2 ** 16 # 32768
 sampling_time = 1000 / sys_clk_freq # 4 ns for one sample. From the main frequency.
-adc_sampling_bit = 18 # set ADC resolution
+adc_sampling_bit = 16 # set ADC resolution
 adc_volt = 800 # Voltage on one side from x axis in mV
 
 sample_value_half = 2 ** (adc_sampling_bit - 1)
@@ -142,12 +142,14 @@ conf_dict = {
     'conf_nr_rx_pulse': 28*4, # set number of rx pulse, fid:1, cpmg:echo text input
     'conf_nr_sample': 29*4, # set number of sample each bag
     
-    'conf_exp_stop': 30*4, # terminate experiment
+    'conf_exp_stop': 30*4, # terminate experiment, 0-average, 1-stop
     
     'conf_bandpass_filter': 31*4, # whether to apply bandpass filter
     'conf_bandpass_filter_f_low': 32*4, # lower band of bandpass filter
     'conf_bandpass_filter_f_high': 33*4, # higher band of bandpass filter
     'conf_bandpass_filter_order': 34*4, # order of bandpass filter
+    
+    'conf_loop_stop': 35*4, # FID or CPMG loop token, 0-loop, 1-stop
     
 }
 
