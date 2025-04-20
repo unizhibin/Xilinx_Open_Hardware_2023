@@ -1,9 +1,6 @@
 # Quantum Sensing
 ## PYNQ-based Portable Nuclear Magnetic Resonance Spectrometer Powered by Deep Learning from AMD Xilinx
 
-### For Cheems
-
-
 ### Youtube Video
 
 https://youtu.be/D55JbZ45ar8
